@@ -8,9 +8,8 @@ on:
 
 jobs:
   analyze:
-    name: Analyze C++
+    name: Analyze
     runs-on: ubuntu-latest
-
     permissions:
       actions: read
       contents: read
@@ -19,7 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [cpp]
+        language: [ cpp ]
 
     steps:
       - name: Checkout repository
@@ -30,9 +29,8 @@ jobs:
         with:
           languages: ${{ matrix.language }}
 
-      - name: Build the code manually
-        run: |
-          g++ -o vuln vuln.cpp
+      - name: Build vuln.cpp manually
+        run: g++ -o vuln vuln.cpp
 
-      - name: Run CodeQL analysis
+      - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
